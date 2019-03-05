@@ -2,7 +2,8 @@ var curr_page = 1;
 
 $( function() {
    
-
+    const urlParams = new URLSearchParams(window.location.search);
+    curr_page = urlParams.get('page');
     retrieve_users(curr_page);
 
 });
@@ -48,15 +49,15 @@ function retrieve_users(page){
 
 }
 
-function delete_user(theid){
+function delete_user(id){
     $.ajax({
-        url: "https://reqres.in/api/users",
+        url: "https://reqres.in/api/users/"+id,
         type: "DELETE",
-        data: {
-            id: theid
-        },
         success: function(response){
             console.log(response);
+        },
+        fail: function(r){
+            console.log("failed to delete");
         }
     });
                 
